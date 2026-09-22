@@ -1,0 +1,16 @@
+relationship 6276ce79-3ea1-0046-610a-f307258e2743
+	fromColumn: fact_wind_power.time_id
+	toColumn: dim_time.time_id
+
+relationship 51c16ac1-005b-bed7-b4c1-68abcb080259
+	fromColumn: fact_wind_power.status_id
+	toColumn: dim_operational_status.status_id
+
+relationship 7d2c213e-bea4-5850-a6db-f6da666a71b4
+	fromColumn: fact_wind_power.turbine_id
+	toColumn: dim_turbine.turbine_id
+
+relationship 490de3fd-3dfb-34a4-aa53-4b97f2ee86b0
+	fromColumn: fact_wind_power.date_id
+	toColumn: dim_date.date_id
+

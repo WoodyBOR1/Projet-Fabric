@@ -1,0 +1,155 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "c102f22e-b0c2-86ba-4795-5629e5e9d2a0",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Get Daily Wind Turbine Data",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "c05aa0e5-a2f0-8eea-41f7-269eaee32d09",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Bronze to Silver transformations",
+        "dependsOn": [
+          {
+            "activity": "Get Daily Wind Turbine Data",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "08d6572c-e390-8650-4a01-901b438302b2",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Silver to Gold transformations",
+        "dependsOn": [
+          {
+            "activity": "Bronze to Silver transformations",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "PBISemanticModelRefresh",
+        "typeProperties": {
+          "method": "POST",
+          "groupId": "cd28528f-6aba-4d1e-b9ed-f6fd6c34a914",
+          "datasetId": "984823bf-7c1d-4e06-996a-0f9e8b865884",
+          "commitMode": "Transactional",
+          "waitOnCompletion": true,
+          "operationType": "SemanticModelRefresh"
+        },
+        "externalReferences": {
+          "connection": "02385531-0240-474a-8101-99c7d7e67e69"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Refresh Semantic model",
+        "dependsOn": [
+          {
+            "activity": "Silver to Gold transformations",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Office365Email",
+        "typeProperties": {
+          "body": "<p>This alert is been sent to you because an error has been detected in the Get Daily Wind Turbine Data notebook</p>",
+          "to": "admin.fabric@woodyborgellayahoo.onmicrosoft.com",
+          "subject": "Error alert on \"Get daily Wind Turbine Data\""
+        },
+        "externalReferences": {
+          "connection": "f28c549d-3eb4-470d-9df6-cd0b70f99e1f"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Mail Alert",
+        "dependsOn": [
+          {
+            "activity": "Get Daily Wind Turbine Data",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "MicrosoftTeams",
+        "typeProperties": {
+          "content": "<p>This alert is been sent to you because an error has been detected in the Get Daily Wind Turbine Data notebook</p>",
+          "teamId": {
+            "value": "@activity('Get Daily Wind Turbine Data').output",
+            "type": "Expression"
+          },
+          "operationType": "SendMessageInChannel",
+          "subject": "Error Alert on \"Get Daily Wind Turbine Data\""
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Teams Alert",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "Get Daily Wind Turbine Data",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "NB_Get_Daily_Data_Python"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c102f22e-b0c2-86ba-4795-5629e5e9d2a0"
+  }
+}

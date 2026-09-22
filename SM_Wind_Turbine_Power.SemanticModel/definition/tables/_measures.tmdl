@@ -1,0 +1,33 @@
+table _measures
+	lineageTag: 7a6ec783-4215-4876-b599-246d68a0970d
+
+	measure Is_Hierarchy_Violated =
+			
+			VAR ProdA = CALCULATE(SUM(fact_wind_power[energy_produced]), dim_turbine[turbine_name] = "Turbine A")
+			VAR ProdB = CALCULATE(SUM(fact_wind_power[energy_produced]), dim_turbine[turbine_name] = "Turbine B")
+			VAR ProdC = CALCULATE(SUM(fact_wind_power[energy_produced]), dim_turbine[turbine_name] = "Turbine C")
+			RETURN
+			IF(
+			    ISBLANK(ProdA) || ISBLANK(ProdB) || ISBLANK(ProdC),
+			    0,
+			    IF(ProdB >= ProdA || ProdC >= ProdB, 1, 0)
+			)
+		formatString: 0
+		lineageTag: bcf63244-baee-44d1-8f6a-ee53fb87e9ee
+
+	column ColonneTemp
+		isHidden
+		formatString: 0
+		lineageTag: c9a50c7d-ad99-4514-99e6-1f46642c5fd8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [ColonneTemp]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _measures = calculated
+		mode: import
+		source = ROW("ColonneTemp", BLANK())
+
+	annotation PBI_Id = 403cf4a762c54db9bb24613229128797
+

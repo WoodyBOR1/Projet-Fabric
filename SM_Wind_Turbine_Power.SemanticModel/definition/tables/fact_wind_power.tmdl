@@ -1,0 +1,80 @@
+table fact_wind_power
+	lineageTag: ad91beb9-7857-4943-843e-60f972072fb8
+	sourceLineageTag: [dbo].[fact_wind_power]
+
+	column production_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8757f086-e709-45b4-b1d3-0595790651ed
+		sourceLineageTag: production_id
+		summarizeBy: sum
+		sourceColumn: production_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_id
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fab96de1-3eca-45a3-8d9a-172b40474d51
+		sourceLineageTag: date_id
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_id
+		dataType: string
+		lineageTag: afb916af-6c41-428c-a14c-8ec201acead6
+		sourceLineageTag: time_id
+		summarizeBy: none
+		sourceColumn: time_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column turbine_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a9f8dde-ea12-4be8-9317-7633f6651f8f
+		sourceLineageTag: turbine_id
+		summarizeBy: none
+		sourceColumn: turbine_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column status_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c70b8b5-d9aa-4938-bcf8-5204d8e69158
+		sourceLineageTag: status_id
+		summarizeBy: none
+		sourceColumn: status_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column wind_direction
+		dataType: string
+		lineageTag: 8787a9a1-a9b7-4f6d-9871-473290c5a213
+		sourceLineageTag: wind_direction
+		summarizeBy: none
+		sourceColumn: wind_direction
+
+		annotation SummarizationSetBy = Automatic
+
+	column energy_produced
+		dataType: double
+		lineageTag: 7c1710bf-c20b-4e10-888b-58fd105beb4a
+		sourceLineageTag: energy_produced
+		summarizeBy: sum
+		sourceColumn: energy_produced
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_wind_power = entity
+		mode: directLake
+		source
+			entityName: fact_wind_power
+			schemaName: dbo
+			expressionSource: 'DirectLake - LH_Wind_Power_Gold'
+
