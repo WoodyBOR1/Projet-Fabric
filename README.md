@@ -1,4 +1,5 @@
 # 🌬️ Supervision d'un parc éolien — Pipeline data end to end Microsoft Fabric
+**Finalité du projet :** Réduire les temps d'arrêt non planifiés et maximiser la production énergétique en transformant les signaux IoT bruts en alertes proactives et tableaux de bord décisionnels.
 
 ## 📖 Présentation du projet
 Pour produire un maximum d'électricité, un parc éolien doit tourner sans interruption. 
