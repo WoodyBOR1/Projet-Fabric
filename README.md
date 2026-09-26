@@ -5,7 +5,7 @@ Pour produire un maximum d'électricité, un parc éolien doit tourner sans inte
 Sur cette installation, trois éoliennes envoient des mesures toutes les dix minutes. 
 Le problème : sans un système automatique pour rassembler et analyser ces chiffres en continu, les pannes passent inaperçues, les interventions prennent du retard et le parc perd de l'énergie.
 
-Ce projet met en place une plateforme complète sous **Microsoft Fabric** pour fiabiliser ces données brutes et déclencher des actions correctives rapides.
+Ce projet met en place une plateforme unifiée sous **Microsoft Fabric** pour automatiser le traitement des données brutes et déclencher des interventions ciblées avant l'arrêt d'urgence.
 
 ## 🎯 Objectifs
 Concevoir, déployer et orchestrer une plateforme de données unifiée et évolutive afin de :
