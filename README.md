@@ -1,4 +1,4 @@
-# 🌬️ Supervision d'un parc éolien — Pipeline data de bout en bout Microsoft Fabric
+# 🌬️ Supervision d'un parc éolien — Pipeline data end to end Microsoft Fabric
 
 ## 📖 Présentation du projet
 Pour produire un maximum d'électricité, un parc éolien doit tourner sans interruption. 
